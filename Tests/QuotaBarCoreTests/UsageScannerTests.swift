@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import DeskAppCore
+@testable import QuotaBarCore
 
 struct PricingTests {
     @Test func normalizeStripsContextTagAndDate() {
@@ -38,7 +38,7 @@ struct UsageScannerTests {
 
     private func makeProjectDir() throws -> URL {
         let dir = FileManager.default.temporaryDirectory
-            .appendingPathComponent("deskapp-tests-\(UUID().uuidString)/projects/-tmp-proj")
+            .appendingPathComponent("quotabar-tests-\(UUID().uuidString)/projects/-tmp-proj")
         try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         return dir
     }

@@ -3,7 +3,7 @@ import Carbon.HIToolbox
 import SwiftUI
 
 @main
-struct DeskApp: App {
+struct QuotaBarApp: App {
     @NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
 
     init() {

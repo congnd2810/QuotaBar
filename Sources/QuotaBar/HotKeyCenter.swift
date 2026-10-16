@@ -22,7 +22,7 @@ final class HotKeyCenter {
         let id = nextID
         nextID += 1
         var ref: EventHotKeyRef?
-        let hotKeyID = EventHotKeyID(signature: OSType(0x4453_4B41), id: id) // "DSKA"
+        let hotKeyID = EventHotKeyID(signature: OSType(0x5142_4152), id: id) // "QBAR"
         guard RegisterEventHotKey(UInt32(keyCode), Self.modifiers, hotKeyID, GetApplicationEventTarget(), 0, &ref) == noErr,
               let ref
         else { return }

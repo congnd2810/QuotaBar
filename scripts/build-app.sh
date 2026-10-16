@@ -1,14 +1,14 @@
 #!/bin/sh
-# Builds a release binary and wraps it in build/DeskApp.app (menu bar only, ad-hoc signed).
+# Builds a release binary and wraps it in build/QuotaBar.app (menu bar only, ad-hoc signed).
 set -eu
 
 cd "$(dirname "$0")/.."
 swift build -c release
 
-APP=build/DeskApp.app
+APP=build/QuotaBar.app
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
-cp "$(swift build -c release --show-bin-path)/DeskApp" "$APP/Contents/MacOS/DeskApp"
+cp "$(swift build -c release --show-bin-path)/QuotaBar" "$APP/Contents/MacOS/QuotaBar"
 cp Resources/AppIcon.icns "$APP/Contents/Resources/"   # regenerate with scripts/generate-icon.swift
 
 cat > "$APP/Contents/Info.plist" <<'PLIST'
@@ -16,9 +16,9 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>CFBundleExecutable</key><string>DeskApp</string>
-    <key>CFBundleIdentifier</key><string>asia.solarapp.deskapp</string>
-    <key>CFBundleName</key><string>DeskApp</string>
+    <key>CFBundleExecutable</key><string>QuotaBar</string>
+    <key>CFBundleIdentifier</key><string>asia.solarapp.quotabar</string>
+    <key>CFBundleName</key><string>QuotaBar</string>
     <key>CFBundleIconFile</key><string>AppIcon</string>
     <key>CFBundleDevelopmentRegion</key><string>en</string>
     <key>CFBundleLocalizations</key><array><string>en</string></array>

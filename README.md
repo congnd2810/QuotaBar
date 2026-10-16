@@ -1,4 +1,4 @@
-# DeskApp
+# QuotaBar
 
 A lightweight, native macOS menu bar app inspired by [Stats](https://github.com/exelban/stats) for tracking AI coding assistant rate limits, quotas, and API-equivalent costs in real time.
 
@@ -14,7 +14,7 @@ A lightweight, native macOS menu bar app inspired by [Stats](https://github.com/
 - **OpenCode** *(not yet verified against a live install)*: No plan limits exist locally; its sessions and estimated costs come from `~/.local/share/opencode/opencode.db`.
 - Codex, Command Code and Cursor menu bar items are shown by default only when the tool is detected on the Mac; toggle each in Settings → Providers.
 - **Claude Code API-Equivalent Cost**: Scans local Claude Code JSONL logs to calculate API-equivalent spend (Today / 7 days / 30 days) with a 14-day stacked bar chart broken down by model.
-- **Rolling 7-Day Limit History**: Records limit usage on every refresh to `~/Library/Application Support/DeskApp/limit-history.json` (retaining today + the previous 6 calendar days) and plots step-line charts in each provider's popover.
+- **Rolling 7-Day Limit History**: Records limit usage on every refresh to `~/Library/Application Support/QuotaBar/limit-history.json` (retaining today + the previous 6 calendar days) and plots step-line charts in each provider's popover.
 - **Sessions Browser (`⌃⌥⌘S`)**: Lists top-level sessions from the last 30 days across **Claude Code** (with titles and subagent-inclusive costs), **Antigravity CLI (`agy`)** (with step counts from `conversation_summaries.db` opened in `immutable=1` read-only mode), **Codex** (thread names from `session_index.jsonl`), **Command Code** (titles and recorded costs) and **OpenCode**. Filter by project or tool, double-click to resume in Terminal (`claude --resume` / `agy --conversation` / `codex resume` / `commandcode --resume` / `opencode --session`), or copy the resume command for iTerm and other terminals.
 - **Menu Bar Styles**: Choose between **Text**, **Bar**, or **Ring** gauges. Each provider lives in its own menu bar item and can be toggled independently (hidden providers are not polled).
 - **Automatic OAuth Token Refresh**: Optionally refreshes expired Claude Code OAuth tokens using the same endpoint as Claude Code and writes the rotated token pair back to the Keychain so your CLI session stays signed in.
@@ -31,14 +31,14 @@ A lightweight, native macOS menu bar app inspired by [Stats](https://github.com/
 
 ```sh
 # Run directly during development
-swift run DeskApp
+swift run QuotaBar
 
 # Run the unit test suite
 swift test
 
-# Build and package the release app bundle (build/DeskApp.app)
+# Build and package the release app bundle (build/QuotaBar.app)
 ./scripts/build-app.sh
-open build/DeskApp.app
+open build/QuotaBar.app
 ```
 
 To open the project in Xcode:
@@ -72,8 +72,8 @@ All data is read locally or fetched directly using your existing CLI credentials
 | **Claude Plan Limits** | `GET https://api.anthropic.com/api/oauth/usage` using the OAuth token from Keychain (`Claude Code-credentials`) | Undocumented internal endpoint used by `claude /usage`; subject to change |
 | **Claude Token Refresh** | `POST https://platform.claude.com/v1/oauth/token` | Refresh tokens rotate on use; the new token pair is written back to Keychain via `/usr/bin/security` so `claude` is never logged out |
 | **Antigravity Quotas** | `agy -p /usage --output-format json` | Local slash command; consumes zero quota |
-| **Claude Code Cost & Sessions** | `~/.claude/projects/**/*.jsonl` (plus `$CLAUDE_CONFIG_DIR` and `~/.config/claude`) | Incremental tail reader over the last 30 days; cached in `~/Library/Application Support/DeskApp/claude-code-usage.json` |
-| **Antigravity Sessions** | `~/.gemini/antigravity-cli/conversation_summaries.db` | Opened with `mode=ro&immutable=1` so DeskApp never creates lock or journal files next to `agy`'s database |
+| **Claude Code Cost & Sessions** | `~/.claude/projects/**/*.jsonl` (plus `$CLAUDE_CONFIG_DIR` and `~/.config/claude`) | Incremental tail reader over the last 30 days; cached in `~/Library/Application Support/QuotaBar/claude-code-usage.json` |
+| **Antigravity Sessions** | `~/.gemini/antigravity-cli/conversation_summaries.db` | Opened with `mode=ro&immutable=1` so QuotaBar never creates lock or journal files next to `agy`'s database |
 
 ### Notes on Cost Calculation
 
@@ -85,7 +85,7 @@ All data is read locally or fetched directly using your existing CLI credentials
 
 ```text
 Sources/
-  DeskAppCore/                          # Core library (no UI dependencies, unit-tested)
+  QuotaBarCore/                          # Core library (no UI dependencies, unit-tested)
     Models.swift                        # Shared limit/window models and ISO-8601 parser
     ProcessRunner.swift                 # Async subprocess runner with timeout & SIGTERM/SIGKILL handling
     LimitHistory.swift                  # Rolling 7-day limit usage store
@@ -99,8 +99,8 @@ Sources/
     Antigravity/
       AntigravityQuotaFetcher.swift     # Parses `agy -p /usage --output-format json`
       AgySessionReader.swift            # Read-only SQLite reader for agy conversation summaries
-  DeskApp/                              # macOS menu bar executable (AppKit + SwiftUI + Swift Charts)
-    DeskApp.swift                       # App entry point, status items, and global hotkeys
+  QuotaBar/                              # macOS menu bar executable (AppKit + SwiftUI + Swift Charts)
+    QuotaBar.swift                       # App entry point, status items, and global hotkeys
     StatusItemController.swift          # NSStatusItem + transient NSPopover management
     MenuBarLabel.swift                  # Template image renderer for text, bar, and ring widgets
     UsageStore.swift                    # Observable state store and polling loop
@@ -110,9 +110,9 @@ Sources/
     AppSettings.swift                   # UserDefaults-backed preferences & Launch at Login
     HotKeyCenter.swift                  # Carbon global hotkey registration
 Tests/
-  DeskAppCoreTests/                     # Swift Testing unit tests
+  QuotaBarCoreTests/                     # Swift Testing unit tests
 scripts/
-  build-app.sh                          # Builds release binary and packages build/DeskApp.app
+  build-app.sh                          # Builds release binary and packages build/QuotaBar.app
   generate-icon.swift                   # Renders Resources/AppIcon.icns via SwiftUI
 ```
 

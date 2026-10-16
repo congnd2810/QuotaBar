@@ -76,7 +76,7 @@ enum ProviderBrand: CaseIterable {
     private static func commandCodeIcon() -> NSImage? {
         let fm = FileManager.default
         let cached = fm.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("DeskApp/icons/commandcode.png")
+            .appendingPathComponent("QuotaBar/icons/commandcode.png")
         if let image = NSImage(contentsOf: cached) { return image }
 
         let home = fm.homeDirectoryForCurrentUser.path

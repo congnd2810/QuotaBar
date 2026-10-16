@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import DeskAppCore
+@testable import QuotaBarCore
 
 private func tempDir() throws -> URL {
     let dir = FileManager.default.temporaryDirectory.appendingPathComponent("provider-\(UUID().uuidString)")

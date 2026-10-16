@@ -1,6 +1,6 @@
 import AppKit
 import Charts
-import DeskAppCore
+import QuotaBarCore
 import SwiftUI
 
 struct ClaudePopover: View {

@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import DeskAppCore
+@testable import QuotaBarCore
 
 struct LimitHistoryTests {
     private let calendar: Calendar = {
@@ -70,7 +70,7 @@ struct ResumeCommandTests {
     }
 
     @Test func quotedPathSurvivesTheShell() async throws {
-        let dir = FileManager.default.temporaryDirectory.appendingPathComponent("deskapp it's $HOME `x`")
+        let dir = FileManager.default.temporaryDirectory.appendingPathComponent("quotabar it's $HOME `x`")
         try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         let command = ResumeCommand.claude(sessionID: "s", projectPath: dir.path)
             .replacingOccurrences(of: "claude --resume 's'", with: "pwd")

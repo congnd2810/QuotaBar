@@ -2,11 +2,11 @@
 import PackageDescription
 
 let package = Package(
-    name: "DeskApp",
+    name: "QuotaBar",
     platforms: [.macOS(.v14)],
     targets: [
-        .target(name: "DeskAppCore"),
-        .executableTarget(name: "DeskApp", dependencies: ["DeskAppCore"]),
-        .testTarget(name: "DeskAppCoreTests", dependencies: ["DeskAppCore"]),
+        .target(name: "QuotaBarCore"),
+        .executableTarget(name: "QuotaBar", dependencies: ["QuotaBarCore"]),
+        .testTarget(name: "QuotaBarCoreTests", dependencies: ["QuotaBarCore"]),
     ]
 )

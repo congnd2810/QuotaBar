@@ -1,4 +1,4 @@
-import DeskAppCore
+import QuotaBarCore
 import Foundation
 import Observation
 
@@ -42,7 +42,7 @@ final class UsageStore {
 
     private static let supportDirectory = FileManager.default
         .urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-        .appendingPathComponent("DeskApp")
+        .appendingPathComponent("QuotaBar")
     private static let historyURL = supportDirectory.appendingPathComponent("limit-history.json")
 
     init(settings: AppSettings) {

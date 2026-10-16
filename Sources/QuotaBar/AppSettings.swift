@@ -1,4 +1,4 @@
-import DeskAppCore
+import QuotaBarCore
 import Foundation
 import Observation
 import ServiceManagement
@@ -59,6 +59,7 @@ final class AppSettings {
     private(set) var launchAtLoginError: String?
 
     init() {
+        LegacyMigration.run()
         defaults.register(defaults: [
             Key.refreshMinutes: 5,
             Key.showClaude: true,

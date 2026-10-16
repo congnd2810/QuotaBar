@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import DeskAppCore
+@testable import QuotaBarCore
 
 struct ParsingTests {
     @Test func claudeLimitsParsesWindowsAndSkipsNulls() throws {

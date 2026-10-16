@@ -1,5 +1,5 @@
 import AppKit
-import DeskAppCore
+import QuotaBarCore
 import SwiftUI
 
 /// A session of one of the supported coding agents, as shown in the Sessions window.
@@ -308,7 +308,7 @@ enum SessionLauncher {
             throw LaunchError.projectMissing(row.projectPath)
         }
         let terminalURL = URL(fileURLWithPath: "/System/Applications/Utilities/Terminal.app")
-        let directory = FileManager.default.temporaryDirectory.appendingPathComponent("DeskApp", isDirectory: true)
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent("QuotaBar", isDirectory: true)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         let script = directory.appendingPathComponent("resume-\(row.id).command")
         try ResumeCommand.script(row.resumeCommand).write(to: script, atomically: true, encoding: .utf8)

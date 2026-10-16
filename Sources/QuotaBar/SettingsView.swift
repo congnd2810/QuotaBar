@@ -1,5 +1,5 @@
 import AppKit
-import DeskAppCore
+import QuotaBarCore
 import SwiftUI
 
 struct SettingsView: View {
@@ -111,7 +111,7 @@ private struct ProviderSettings: View {
                 Toggle("Show in menu bar", isOn: $settings.showClaude)
                     .disabled(isLastVisible(settings.showClaude))
                 Toggle("Refresh sign-in token automatically", isOn: $settings.autoRefreshClaudeToken)
-                Text("When the token expires, DeskApp refreshes it the same way Claude Code does and writes the new token back to Claude Code's Keychain item.")
+                Text("When the token expires, QuotaBar refreshes it the same way Claude Code does and writes the new token back to Claude Code's Keychain item.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             } header: {
@@ -190,9 +190,9 @@ private struct AboutView: View {
             Image(nsImage: NSApp.applicationIconImage)
                 .resizable()
                 .frame(width: 96, height: 96)
-            Text(verbatim: "DeskApp").font(.title2.weight(.semibold))
+            Text(verbatim: "QuotaBar").font(.title2.weight(.semibold))
             Text("Version \(version)").font(.callout).foregroundStyle(.secondary)
-            Text("AI usage in your menu bar: Claude plan limits, Claude Code cost, and Antigravity quotas.")
+            Text("Plan limits, costs and sessions of your AI coding tools, right in the menu bar: Claude, Antigravity, Codex, Command Code, Cursor and OpenCode.")
                 .multilineTextAlignment(.center)
                 .font(.callout)
                 .padding(.horizontal, 40)
@@ -227,7 +227,7 @@ final class SettingsWindowController {
     func show() {
         if window == nil {
             let window = NSWindow(contentViewController: NSHostingController(rootView: SettingsView(settings: settings, store: store)))
-            window.title = "DeskApp Settings"
+            window.title = "QuotaBar Settings"
             window.styleMask = [.titled, .closable]
             window.isReleasedWhenClosed = false
             window.center()
